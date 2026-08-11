@@ -488,10 +488,33 @@ const getStripeSession = async (req, res) => {
       });
     }
 
+    // ==========================================
+    // FALLBACK: UPDATE DB IF WEBHOOK MISSED IT
+    // ==========================================
+
+    const isPaid = session.payment_status === "paid";
+
+    if (isPaid && order.payment !== true) {
+      await orderModel.findByIdAndUpdate(orderId, {
+        payment: true,
+        paymentStatus: "paid",
+        paymentIntentId: session.payment_intent,
+      });
+
+      await userModel.findByIdAndUpdate(order.userId, {
+        cartData: {},
+      });
+
+      console.log("======================================");
+      console.log("PAYMENT UPDATED VIA VERIFY FALLBACK");
+      console.log("ORDER ID:", orderId);
+      console.log("======================================");
+    }
+
     return res.json({
       success: true,
       paymentStatus: session.payment_status,
-      orderPayment: order.payment,
+      orderPayment: isPaid ? true : order.payment,
       orderId: order._id,
     });
   } catch (error) {
