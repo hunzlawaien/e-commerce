@@ -99,9 +99,17 @@ app.get("/", (req, res) => {
 });
 
 // ==========================================
-// START SERVER
+// START SERVER (local development only)
 // ==========================================
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server started on PORT: ${port}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Server started on PORT: ${port}`);
+  });
+}
+
+// ==========================================
+// EXPORT FOR VERCEL
+// ==========================================
+
+export default app;
