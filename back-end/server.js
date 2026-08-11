@@ -41,13 +41,18 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests without an origin
-      // such as Postman/server-to-server requests
+      // Allow requests without an origin (Postman, server-to-server)
       if (!origin) {
         return callback(null, true);
       }
 
+      // Allow exact matches from allowedOrigins
       if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Allow any Vercel deployment URL (preview + production)
+      if (/^https:\/\/.*\.vercel\.app$/.test(origin)) {
         return callback(null, true);
       }
 
