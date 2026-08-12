@@ -3,7 +3,8 @@ import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
-const ADMIN_URL = "YOUR_ADMIN_URL_HERE"; // 👈 paste your admin URL here
+const ADMIN_URL =
+  "https://e-commerce-jfz2-ekr7tv2vb-hunzlawaiens-projects.vercel.app/";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
