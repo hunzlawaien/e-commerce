@@ -2,6 +2,9 @@ import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+
+const ADMIN_URL = "YOUR_ADMIN_URL_HERE"; // 👈 paste your admin URL here
+
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const {
@@ -46,6 +49,16 @@ const Navbar = () => {
           <p>CONTACT</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
+
+        {/* ADMIN DEMO BUTTON */}
+        <a
+          href={ADMIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-black px-3 py-1 text-xs tracking-widest hover:bg-black hover:text-white transition"
+        >
+          ADMIN DEMO
+        </a>
       </ul>
       {/* NAVBAR ICON LINKS */}
       <div className="flex items-center gap-6">
@@ -138,6 +151,17 @@ const Navbar = () => {
           >
             CONTACT
           </NavLink>
+
+          {/* ADMIN DEMO BUTTON - MOBILE */}
+          <a
+            href={ADMIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border font-semibold"
+          >
+            ADMIN DEMO
+          </a>
         </div>
       </div>
     </div>
